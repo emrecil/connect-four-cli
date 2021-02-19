@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-/* Size of board */
+/* Size of board. */
 #define ROWS 6
 #define COLUMNS 7
 
+/* Saves all necessary information about a connect four game. */
 typedef struct
 {
 	/* 
@@ -16,7 +17,7 @@ typedef struct
 
 	/*  Number of remaining checkers. */
 	int remaining;
-	
+
 	/* 
 	* Keeps count of checkers at every column.
 	* Example: 	Player 1 drops a checker in (empty) column 3.

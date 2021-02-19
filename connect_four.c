@@ -1,9 +1,14 @@
 #include <stdio.h>
 
 #include "game.h"
+#include "negamax.h"
 
 /*
  * Starts actual loop of a connectfour game.
+ * 
+ * Parameters:
+ *  - int mode			Sets players, see value meanings in documentation of 
+ * 						prompt_mode()
  * 
  * No paramaters and no return values.
  *
@@ -12,7 +17,20 @@
  * If there is a winner or a tie the loop breaks. Otherwise the current player
  * is toggled and the loop starts over.
  */
-void run_game(void);
+void run_game(int mode);
+
+/*
+ * Asks the player to choose the mode.
+ * 
+ * No parameters.
+ * 
+ * Returns:
+ * - int				Value, 	Mode:
+ * 						 - 0,	Human vs Human
+ * 						 - 1,	Human vs AI
+ * 						 - 2,	AI vs AI
+ */
+int prompt_mode(void);
 
 /*
  * Asks the player to restart the game.
@@ -21,20 +39,17 @@ void run_game(void);
  * 
  * Returns:
  * - int				1 if player wants to restart, else 0
- *
- * Diese Funktion bestimmt mit Hilfe der Regel von Conway's Game of Life
- * den Zustand einer Zelle in der naechsten Generation.
  */
 int prompt_restart(void);
 
 /*
-* Entry point.
-*/
+ * Entry point.
+ */
 int main(void)
 {
 	do
 	{
-		run_game();
+		run_game(prompt_mode());
 	} while (prompt_restart());
 
 	puts("Goodbye!");
@@ -43,7 +58,7 @@ int main(void)
 	return 0;
 }
 
-void run_game(void)
+void run_game(int mode)
 {
 	Game game;
 
@@ -54,7 +69,17 @@ void run_game(void)
 
 	do
 	{
-		column = get_player_move(&game);
+		printf("Current Player: %d\n", (game.current_player == -1 ? 1 : 2));
+
+		if (mode == 3 || (game.current_player == 1 && mode == 2))
+		{
+			column = get_ai_move(&game);
+			printf("AI chose column: %d\n", column + 1);
+		}
+		else
+		{
+			column = get_player_move(&game);
+		}
 		drop_at(&game, column);
 		visualize_game(&game);
 		if (check_win(&game, column))
@@ -73,6 +98,27 @@ void run_game(void)
 		}
 
 	} while (1);
+}
+
+int prompt_mode(void)
+{
+	int mode;
+	puts("Choose players!");
+	puts("[1] Human vs Human");
+	puts("[2] Human vs AI");
+	puts("[3] AI vs AI");
+
+	printf("Enter your choice: ");
+	scanf("%d", &mode);
+
+	while (mode < 1 || mode > 3)
+	{
+		puts("Choice is invalid!");
+		printf("Enter your choice: ");
+		scanf("%d", &mode);
+	}
+
+	return mode;
 }
 
 int prompt_restart(void)
