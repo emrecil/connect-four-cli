@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "game.h"
-#include "negamax.h"
+#include <connect_four/game.h>
+#include <connect_four/negamax.h>
 
 /*
  * Starts actual loop of a connectfour game.

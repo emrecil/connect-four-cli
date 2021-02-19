@@ -23,18 +23,8 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-# list all source files
-set(SourceFiles
-    connect_four.c
-    game.c
-    negamax.c
-)
+add_subdirectory(connect_four)
 
-# list all header files
-set(HeaderFiles
-    game.h
-    negamax.h
-)
+add_executable(ConnectFour connect_four.c)
 
-
-add_executable(${ProjectName} ${SourceFiles} ${Header})
+target_link_libraries(ConnectFour PRIVATE connect_four)
