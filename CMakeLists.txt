@@ -27,11 +27,13 @@ endif()
 set(SourceFiles
     connect_four.c
     game.c
+    negamax.c
 )
 
 # list all header files
 set(HeaderFiles
     game.h
+    negamax.h
 )
 
 

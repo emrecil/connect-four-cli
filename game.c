@@ -30,7 +30,8 @@ void initialize_game(Game *game, char *initializer)
 		{
 			column = *action - 49;
 			drop_at(game, column);
-			if (check_win(game, column) == 0) {
+			if (check_win(game, column) != 0)
+			{
 				fprintf(stderr, "Error: Initializer results in win! Aborting.\n");
 				abort();
 			}
@@ -126,13 +127,11 @@ void drop_at(Game *game, int column)
 int get_player_move(Game *game)
 {
 	/*
-	 * TODO: Solve issue: User inputs nondigit
+	 * TODO: Solve issue: User inputs nondigit results in error state
 	 */
 	int column, valid;
 
 	valid = 0;
-
-	printf("Current Player: %d\n", (game->current_player == -1 ? 1 : 2));
 
 	while (!valid)
 	{
@@ -220,13 +219,14 @@ int check_win(Game *game, int last_column)
 			break;
 		++count;
 	}
-	for (i = last_row - 1, j = last_column + 1; i >= 0 && j < COLUMNS; --i, ++j) {
+	for (i = last_row - 1, j = last_column + 1; i >= 0 && j < COLUMNS; --i, ++j)
+	{
 		if (game->board[i][j] != game->current_player)
 			break;
 		++count;
 	}
-	
+
 	if (count >= 4)
-			return game->current_player;
+		return game->current_player;
 	return 0;
 }
