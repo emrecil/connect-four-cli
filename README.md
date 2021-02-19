@@ -50,4 +50,4 @@ The AI is based on the negamax algorithm, which works by calculating a weight fo
 
 Since it would take to long to compute every possible move a maximum depth has to be defined. I set the depth to 8 (you can change the depth by modifying the value of MAX_DEPTH in negamax.h) since it hits a sweet spot between quick and hard to play against. 
 
-The speed can be further improved using alpha beta pruning and transposition tables which are both not yet implemented. Additional information on Negamax can be found on [Wikipedia](https://en.wikipedia.org/wiki/Negamax)
+The speed can be further improved using alpha beta pruning and transposition tables which are both not yet implemented. Additional information on Negamax can be found on [Wikipedia](https://en.wikipedia.org/wiki/Negamax).
